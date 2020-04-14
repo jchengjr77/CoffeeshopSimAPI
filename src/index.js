@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 */
 app.get('/api/customer-io', (req, res) => {
   let currentPop = req.query.curr;
+
   res.send(data);
 });
 

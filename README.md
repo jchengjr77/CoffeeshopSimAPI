@@ -1,14 +1,12 @@
 # CoffeeShop Sim. API
 
+[![CoffeeshopSimAPI](https://circleci.com/gh/jchengjr77/CoffeeshopSimAPI.svg?style=svg)](https://app.circleci.com/pipelines/github/jchengjr77/CoffeeshopSimAPI)
+
 **Built to test [Vacanti](https://github.com/CMU-17-356/Vacanti).**
-
-
 
 Basic API for Vacanti's Shop-facing backend to interact with.
 
 Simply returns the number of customers going in and out of the shop.
-
-
 
 ## Features/Details
 

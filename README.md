@@ -19,14 +19,14 @@ Constraints:
 - Customers going out cannot be greater than current number of customers.
 - Traffic should vary with the time of day. More specifically, requests made during breakfast/lunch hours will result in greater numbers going in and out (since these are busier hours). Requests made outside of peak hours will have lower traffic.
 
-
+- Deployed to Heroku (see URLs in the usage section below)
 
 ## Usage
 
 The API has two endpoints. The most basic one is:
 
 ```http
-GET /api
+GET https://coffeeshopsimapi.herokuapp.com/api
 ```
 
 All this will do is respond with a greeting message, indicating that you are indeed hitting the API.
@@ -34,7 +34,7 @@ All this will do is respond with a greeting message, indicating that you are ind
 The more useful endpoint is:
 
 ```http
-GET /api/customer-io?curr=123
+GET https://coffeeshopsimapi.herokuapp.com/api/customer-io?curr=123
 ```
 
 Where `curr` is a parameter the shop will pass to the API, indicating the current number of customers in the shop. This is important for the API to calibrate its traffic numbers, as there cannot be more customers exiting the shop than there currently are customers in the shop.

@@ -16,9 +16,10 @@ const router = express.Router();
  * __________ API Routes __________
  */
 router.get('/', (req, res) => {
-  res.json({
+  let data = {
     message: 'Hello from Coffee Shop Sim API',
-  });
+  };
+  res.status(200).send(data);
 });
 
 /*
@@ -34,7 +35,7 @@ router.get('/customer-io', (req, res) => {
     in: 5,
     out: 3,
   };
-  res.send(data);
+  res.status(200).send(data);
 });
 
 /*
@@ -45,6 +46,9 @@ router.get('/customer-io', (req, res) => {
 app.use('/api', router);
 
 // * Start server
-app.listen(port, () =>
+var server = app.listen(port, () =>
   console.log(`CoffeeShopSimAPI listening on port ${port}...`)
 );
+
+// * Export server (good for testing)
+module.exports = server;

@@ -56,14 +56,13 @@ router.get("/customer-io", (req, res) => {
   if (currHour < 0) {
     currHour += 24;
   }
-  // timeGroup = util.timeGroup(currHour);
-  timeGroup = 1
+  //! Maybe make this fixed value for development server
+  timeGroup = util.timeGroup(currHour); 
 
   let storeMax = req.query.max;
   let currentPop = req.query.curr;
   if (currentPop >= Math.floor(0.95 * storeMax)) {
     tooFull = true;
-  }
 
   var enteringStore = 0;
   var leavingStore = 0;
@@ -85,7 +84,7 @@ router.get("/customer-io", (req, res) => {
   // Computer number of people leaving the store
   if (!tooFull) {
     if (timeGroup == -2) {
-      leavingStore = req.query.curr
+      leavingStore = req.query.curr;
     } else {
       // -timeGroup because more people staying and working in the evenings,
       // more people just stopping by during the day

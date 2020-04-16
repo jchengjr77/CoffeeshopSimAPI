@@ -35,15 +35,19 @@ router.get("/customer-io", (req, res) => {
   let UTCOffset;
   var currHour = new Date().getUTCHours();
 
-  if (req.query.max == null || req.query.curr == null) {
-    res.status(400).send({});
+  if (req.query.max == null) {
+    res.status(400).send("Missing max occupancy");
+    return;
+  }
+  if (req.query.curr == null) {
+    res.status(400).send("Missing current occupancy");
     return;
   }
 
   if (req.query.timezone != null) {
     let timezone = req.query.timezone;
     if (timezones[timezone] == null) {
-      res.status(400).send({}); // Unssuported timezone
+      res.status(400).send("Invalid Timezone"); // Unssuported timezone
       return;
     } else {
       UTCOffset = timezones[timezone].UTCOffset;

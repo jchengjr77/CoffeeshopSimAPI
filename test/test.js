@@ -38,31 +38,22 @@ describe("loading express", () => {
       .get("/api/customer-io?curr=6&max=10&timezone=EDT")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .expect(function(res) {
-        console.log(JSON.stringify(res.body, null, 2));
-      })
       .expect(200, done);
   });
   it("good request (bad timezone)", done => {
     request(server)
       .get("/api/customer-io?curr=0&max=10&timezone=oopsies")
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(400, done);
+      .expect(400, "Invalid Timezone", done);
   });
   it("request missing max", done => {
     request(server)
       .get("/api/customer-io?curr=0")
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(400, done);
+      .expect(400, "Missing max occupancy", done);
   });
   it("request missing curr", done => {
     request(server)
       .get("/api/customer-io?max=10")
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(400, done);
+      .expect(400, "Missing current occupancy", done);
   });
 });
 

@@ -28,16 +28,19 @@ describe("loading express", () => {
   });
   it("good request (no timezone)", done => {
     request(server)
-      .get("/api/customer-io?curr=0&max=10")
+      .get("/api/customer-io?curr=6&max=10")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(200, done);
   });
   it("good request (timezone)", done => {
     request(server)
-      .get("/api/customer-io?curr=0&max=10&timezone=EDT")
+      .get("/api/customer-io?curr=6&max=10&timezone=EDT")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
+      .expect(function(res) {
+        console.log(JSON.stringify(res.body, null, 2));
+      })
       .expect(200, done);
   });
   it("good request (bad timezone)", done => {
@@ -92,12 +95,12 @@ describe("testing util files", () => {
     done();
   });
   it("tests that a given hour gives the right time group", done => {
-    assert.equal(util.timeGroup(0), 0);
-    assert.equal(util.timeGroup(8), 2);
-    assert.equal(util.timeGroup(9), 3);
-    assert.equal(util.timeGroup(13), 3);
-    assert.equal(util.timeGroup(17), 1);
-    assert.equal(util.timeGroup(22), 0);
+    assert.equal(util.timeGroup(0), -2);
+    assert.equal(util.timeGroup(8), 0);
+    assert.equal(util.timeGroup(9), 1);
+    assert.equal(util.timeGroup(13), 1);
+    assert.equal(util.timeGroup(17), -1);
+    assert.equal(util.timeGroup(22), -2);
     done();
   });
 });

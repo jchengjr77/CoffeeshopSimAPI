@@ -32,15 +32,16 @@ router.get("/", (req, res) => {
 */
 router.get("/customer-io", (req, res) => {
   var tooFull = false;
-  var UTCOffset;
-  var currHour = new Date().getHours();
+  let UTCOffset;
+  var currHour = new Date().getUTCHours();
+
   if (req.query.max == null || req.query.curr == null) {
     res.status(400).send({});
     return;
   }
+
   if (req.query.timezone != null) {
     let timezone = req.query.timezone;
-    console.log(req.query.timezone)
     if (timezones[timezone] == null) {
       res.status(400).send({}); // Unssuported timezone
       return;
@@ -50,18 +51,55 @@ router.get("/customer-io", (req, res) => {
   } else {
     UTCOffset = timezones.EST.UTCOffset; // Default use EST
   }
+
+  currHour += UTCOffset % 24;
+  if (currHour < 0) {
+    currHour += 24;
+  }
+  // timeGroup = util.timeGroup(currHour);
+  timeGroup = 1
+
   let storeMax = req.query.max;
   let currentPop = req.query.curr;
-  if (currentPop >= Math.floor(0.9 * storeMax)) {
+  if (currentPop >= Math.floor(0.95 * storeMax)) {
     tooFull = true;
   }
 
-  timeGroup = util.timeGroup(currHour);
+  var enteringStore = 0;
+  var leavingStore = 0;
+
+  // Compute number of people entering the store
+  if (!tooFull) {
+    if (timeGroup == -2) {
+      enteringStore = 0;
+    } else {
+      var amtComing = Math.floor(Math.random() * 8);
+      enteringStore = util.biasedRandom(0, amtComing, timeGroup);
+    }
+  } else {
+    // Fixed low amount coming
+    // Simulates few people coming because store is full
+    enteringStore = util.biasedRandom(2, -1);
+  }
+
+  // Computer number of people leaving the store
+  if (!tooFull) {
+    if (timeGroup == -2) {
+      leavingStore = req.query.curr
+    } else {
+      // -timeGroup because more people staying and working in the evenings,
+      // more people just stopping by during the day
+      leavingStore = util.biasedRandom(0, req.query.curr, -timeGroup);
+    }
+  } else {
+    // Fixed high amount leaving
+    leavingStore = util.biasedRandom(req.query.curr, 1);
+  }
 
   // Need to do some error checking here
   let data = {
-    in: 5,
-    out: 3
+    in: enteringStore,
+    out: leavingStore
   };
   res.status(200).send(data);
 });

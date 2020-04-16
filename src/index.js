@@ -63,7 +63,7 @@ router.get("/customer-io", (req, res) => {
   let currentPop = req.query.curr;
   if (currentPop >= Math.floor(0.95 * storeMax)) {
     tooFull = true;
-
+  }
   var enteringStore = 0;
   var leavingStore = 0;
 

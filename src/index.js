@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const bodyParser = require("body-parser");
-const util = require("./util");
-const timezones = require("./timezones.json");
+const bodyParser = require('body-parser');
+const util = require('./util');
+const timezones = require('./timezones.json');
 
 const port = process.env.PORT || 5000;
 
@@ -17,9 +17,9 @@ const router = express.Router();
 /*
  * __________ API Routes __________
  */
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   let data = {
-    message: "Hello from Coffee Shop Sim API"
+    message: 'Hello from Coffee Shop Sim API'
   };
   res.status(200).send(data);
 });
@@ -30,24 +30,24 @@ router.get("/", (req, res) => {
     Number of customers out cannot be greater than 'curr'.
     Number of customer in will vary with time of day.
 */
-router.get("/customer-io", (req, res) => {
+router.get('/customer-io', (req, res) => {
   var tooFull = false;
   let UTCOffset;
   var currHour = new Date().getUTCHours();
 
   if (req.query.max == null) {
-    res.status(400).send("Missing max occupancy");
+    res.status(400).send('Missing max occupancy');
     return;
   }
   if (req.query.curr == null) {
-    res.status(400).send("Missing current occupancy");
+    res.status(400).send('Missing current occupancy');
     return;
   }
 
   if (req.query.timezone != null) {
     let timezone = req.query.timezone;
     if (timezones[timezone] == null) {
-      res.status(400).send("Invalid Timezone"); // Unssuported timezone
+      res.status(400).send('Invalid Timezone'); // Unssuported timezone
       return;
     } else {
       UTCOffset = timezones[timezone].UTCOffset;
@@ -61,7 +61,7 @@ router.get("/customer-io", (req, res) => {
     currHour += 24;
   }
   //! Maybe make this fixed value for development server
-  timeGroup = util.timeGroup(currHour); 
+  timeGroup = util.timeGroup(currHour);
 
   let storeMax = req.query.max;
   let currentPop = req.query.curr;
@@ -112,7 +112,7 @@ router.get("/customer-io", (req, res) => {
  */
 
 // * Register routes
-app.use("/api", router);
+app.use('/api', router);
 
 // * Start server
 var server = app.listen(port, () =>

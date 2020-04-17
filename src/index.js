@@ -60,8 +60,10 @@ router.get('/customer-io', (req, res) => {
   if (currHour < 0) {
     currHour += 24;
   }
-  //! Maybe make this fixed value for development server
-  timeGroup = util.timeGroup(currHour);
+
+  // timeGroup = util.timeGroup(currHour);
+  // ! Change this off of being fixed for final production build
+  timeGroup = 1;
 
   let storeMax = req.query.max;
   let currentPop = req.query.curr;

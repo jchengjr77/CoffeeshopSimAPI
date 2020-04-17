@@ -1,0 +1,13 @@
+{
+  "HDT": { "UTCOffset": -9, "name": "Hawaii Daylight Time" },
+  "HST": { "UTCOffset": -10, "name": "Hawaii Standard Time" },
+  "CDT": { "UTCOffset": -5, "name": "Central Daylight Time" },
+  "CST": { "UTCOffset": -6, "name": "Central Standard Time" },
+  "MDT": { "UTCOffset": -6, "name": "Mountain Daylight Time" },
+  "PDT": { "UTCOffset": -7, "name": "Pacific Daylight Time" },
+  "PST": { "UTCOffset": -8, "name": "Pacific Standard Time" },
+  "ADT": { "UTCOffset": -8, "name": "Alaska Daylight Time" },
+  "AST": { "UTCOffset": -9, "name": "Alaska Standard Time" },
+  "EST": { "UTCOffset": -5, "name": "Eastern Standard Time" },
+  "EDT": { "UTCOffset": -4, "name": "Eastern Standard Time" }
+}

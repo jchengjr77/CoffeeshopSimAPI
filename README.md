@@ -32,7 +32,38 @@ All this will do is respond with a greeting message, indicating that you are ind
 The more useful endpoint is:
 
 ```http
-GET https://coffeeshopsimapi.herokuapp.com/api/customer-io?curr=123
+GET https://coffeeshopsimapi.herokuapp.com/api/customer-io?curr=123&max=456
 ```
 
-Where `curr` is a parameter the shop will pass to the API, indicating the current number of customers in the shop. This is important for the API to calibrate its traffic numbers, as there cannot be more customers exiting the shop than there currently are customers in the shop.
+And optionally specifying a timezone:
+
+```http
+GET https://coffeeshopsimapi.herokuapp.com/api/customer-io?curr=123&max=456&timezone=ADT
+```
+
+# Parameters:
+
+  - `curr` (number): a parameter the shop will pass to the API, indicates the current number of customers in the shop. 
+    - This is important for the API to calibrate its traffic numbers, as there cannot be more customers exiting the shop than there currently are customers in the shop.
+  - `max` (number): a parameter the shop will pass to the API, indicates the maximum number of people the shop can comfortably accomodate.
+    - This is important for the API to calibrate its traffic numbers, as there cannot be more customers exiting the shop than there currently are customers in the shop.
+  - `timezone` (string) [optional]: a parameter the shop can pass to the API, indicates the timezone that the shop resides in
+    - The following timezones are supported, passed by abbreviation:
+
+| Abbr | UTC Offset | Name                   |
+| ---- | :--------- | :--------------------- |
+| PDT  | -7         | Pacific Daylight Time  |
+| PST  | -8         | Pacific Standard Time  |
+| MDT  | -6         | Mountain Daylight Time |
+| CDT  | -5         | Central Daylight Time  |
+| CST  | -6         | Central Standard Time  |
+| EDT  | -5         | Eastern Daylight Time  |
+| EST  | -4         | Eastern Standard Time  |
+| ADT  | -8         | Alaska Daylight Time   |
+| AST  | -9         | Alaska Standard Time   |
+| HDT  | -9         | Hawaii Daylight Time   |
+| HST  | -10        | Hawaii Standard Time   |
+
+
+ 
+

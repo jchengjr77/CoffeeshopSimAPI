@@ -61,9 +61,7 @@ router.get('/customer-io', (req, res) => {
     currHour += 24;
   }
 
-  // timeGroup = util.timeGroup(currHour);
-  // ! Change this off of being fixed for final production build
-  timeGroup = 1;
+  timeGroup = util.timeGroup(currHour);
 
   let storeMax = req.query.max;
   let currentPop = req.query.curr;
